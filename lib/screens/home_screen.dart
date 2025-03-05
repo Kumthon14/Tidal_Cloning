@@ -31,6 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   Map<String, dynamic>? selectedSong;
 
+  void _onSongSelected(Map<String, dynamic> song) {
+    setState(() {
+      selectedSong = song; // อัพเดตข้อมูลเพลงที่เลือก
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(slivers: [
@@ -174,7 +180,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ]),
-      )
+      ),
+      
     ]);
   }
 }

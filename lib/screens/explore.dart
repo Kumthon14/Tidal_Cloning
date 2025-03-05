@@ -5,6 +5,7 @@ import 'package:tidal/constant/constant.dart';
 import 'package:tidal/widget/Choice.dart';
 
 import '../widget/ChoiceName.dart';
+import '../widget/ListChoice.dart';
 
 class Explore extends StatefulWidget {
   const Explore({super.key});
@@ -201,7 +202,7 @@ class _ExploreState extends State<Explore> {
                     ),
                   ),
                 ),
-                
+                ListChoice()
               ]
               ),
             ),
