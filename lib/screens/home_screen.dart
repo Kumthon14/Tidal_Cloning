@@ -15,13 +15,21 @@ String getSongImageUrl(String fileName) {
   return supabase.storage.from('Covers').getPublicUrl(fileName);
 }
 
-class HomeScreen extends StatelessWidget {
+Future<List<dynamic>> fetchData() async {
+  final response = await supabase.from('Songs').select('*');
+  return response;
+}
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  Future<List<dynamic>> fetchData() async {
-    final response = await supabase.from('Songs').select('*');
-    return response; // response เป็น List<dynamic>
-  }
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+  Map<String, dynamic>? selectedSong;
 
   @override
   Widget build(BuildContext context) {
@@ -107,105 +115,57 @@ class HomeScreen extends StatelessWidget {
                             )
                           ],
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.width * 0.12,
-                          child: Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.black,
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/frank.jpg'),
-                                        fit: BoxFit.cover)),
-                                width: MediaQuery.of(context).size.width * 0.12,
-                                height: MediaQuery.of(context).size.width,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 3),
-                                child: FutureBuilder<List<dynamic>>(
-                                  future: fetchData(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return Center(
-                                          child:
-                                              CircularProgressIndicator()); // โหลดข้อมูล
-                                    } else if (snapshot.hasError) {
-                                      return Center(
-                                          child: Text(
-                                              'Error: ${snapshot.error}')); // แสดงข้อผิดพลาด
-                                    } else if (!snapshot.hasData ||
-                                        snapshot.data!.isEmpty) {
-                                      return Center(
-                                          child: Text(
-                                              'No data found')); // ไม่มีข้อมูล
-                                    }
+                        SizedBox(
+                          height: MediaQuery.of(context).size.width * 0.78,
+                          child: FutureBuilder<List<dynamic>>(
+                            future: fetchData(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              } else if (snapshot.hasError) {
+                                return Center(
+                                    child: Text('Error: ${snapshot.error}'));
+                              } else if (!snapshot.hasData ||
+                                  snapshot.data!.isEmpty) {
+                                return Center(child: Text('No data found'));
+                              }
 
-                                    final songs =
-                                        snapshot.data!; // ดึงข้อมูลจาก snapshot
+                              final songs = snapshot.data!;
 
-                                    return ListView.builder(
-                                      itemCount: songs.length,
-                                      itemBuilder: (context, index) {
-                                        final song =
-                                            songs[index]; // ดึงข้อมูลแต่ละเพลง
-                                        return ListTile(
-                                          leading: Icon(Icons.music_note,
-                                              color: Colors.blue),
-                                          title: Text(song['title'] ??
-                                              'No Title'), // แสดงชื่อเพลง
-                                          subtitle: Text(song['artist'] ??
-                                              'Unknown Artist'), // แสดงชื่อศิลปิน
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                                // child: Container(
-                                //   child: Column(
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.start,
-                                //     children: [
-                                //       Text(
-                                //         'test',
-                                //         style: GoogleFonts.montserrat(
-                                //           fontSize: 16,
-                                //           fontWeight: FontWeight.w600,
-                                //           color: textPrimaryColor,
-                                //         ),
-                                //       ),
-                                //       Spacer(),
-                                //       Text(
-                                //         'Tyler',
-                                //         style: GoogleFonts.montserrat(
-                                //           fontSize: 13,
-                                //           fontWeight: FontWeight.w400,
-                                //           color: textPrimaryColor,
-                                //         ),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
-                              ),
-                              Spacer(),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.more_horiz,
-                                  size: 20,
-                                  weight: 15,
-                                ),
-                              )
-                            ],
+                              return ListView.builder(
+                                itemCount: songs.length,
+                                itemBuilder: (context, index) {
+                                  final song = songs[index];
+                                  return ListTile(
+                                    leading: Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  'https://imtdfqzdxiubsudpbmyx.supabase.co/storage/v1/object/public/Covers//${song['title']}.jpg'))),
+                                    ),
+                                    title: Text(
+                                      song['title'] ?? 'No Title',
+                                      style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    subtitle: Text(
+                                      song['artist'] ?? 'Unknown Artist',
+                                      style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                    trailing: Icon(Icons.more_horiz),
+                                  );
+                                },
+                              );
+                            },
                           ),
-                        )
+                        ),
                       ],
                     ),
                   )
@@ -215,27 +175,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ]),
       )
-
-      //   SliverToBoxAdapter(
-      //     child: Padding(
-      //       padding: const EdgeInsets.symmetric(horizontal: 20),
-      //       child: Stack(children: [
-      //         Container(
-      //           height: 75,
-      //           width: MediaQuery.of(context).size.width,
-      //           decoration: BoxDecoration(
-      //               borderRadius: BorderRadius.circular(10),
-      //               border: Border.all(
-      //                   style: BorderStyle.solid, color: Colors.white),
-      //               image: DecorationImage(
-      //                   image: AssetImage('assets/images/frank.jpg'),
-      //                   fit: BoxFit.cover)),
-      //         ),
-      //         Text('Test')
-      //       ]),
-      //     ),
-      //   ),
-      // ],
     ]);
   }
 }
