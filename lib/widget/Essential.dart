@@ -19,7 +19,7 @@ class EssentialWidget extends StatelessWidget {
             //Row 1
             children: [
               Text(
-                'Essentials to explore',
+                'Albums',
                 style: textSubTitle,
               ),
               Spacer(),
@@ -50,7 +50,7 @@ class EssentialWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       image: DecorationImage(
-                          image: AssetImage('assets/images/Justine.jpg'),
+                          image: AssetImage('assets/images/St.Chroma.jpg'),
                           fit: BoxFit.cover)),
                 ),
               ),
@@ -66,7 +66,8 @@ class EssentialWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           image: DecorationImage(
-                              image: AssetImage('assets/images/Justine.jpg'),
+                              image: AssetImage(
+                                  'assets/images/BIRDSOFAFEATHER.jpg'),
                               fit: BoxFit.cover)),
                     ),
                   ),
@@ -80,7 +81,7 @@ class EssentialWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           image: DecorationImage(
-                              image: AssetImage('assets/images/Justine.jpg'),
+                              image: AssetImage('assets/images/luther.jpg'),
                               fit: BoxFit.cover)),
                     ),
                   )

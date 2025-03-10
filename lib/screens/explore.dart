@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:tidal/constant/constant.dart';
 import 'package:tidal/widget/Choice.dart';
@@ -93,7 +92,8 @@ class _ExploreState extends State<Explore> {
               children: [
                 Text(
                   "Explore",
-                  style: GoogleFonts.montserrat(
+                  style: TextStyle(
+                    fontFamily: 'Nationale',
                     fontSize: _appBarSize,
                     fontWeight: FontWeight.w600,
                     color: textPrimaryColor,
@@ -104,6 +104,7 @@ class _ExploreState extends State<Explore> {
                 ),
                 TextFormField(
                   style: const TextStyle(
+                    fontFamily: 'Nationale',
                     color: Colors.black,
                   ),
                   controller: Search_Controller,
@@ -125,6 +126,7 @@ class _ExploreState extends State<Explore> {
                       ),
                       hintText: 'Search',
                       hintStyle: const TextStyle(
+                        fontFamily: 'Nationale',
                         fontSize: 14,
                         color: Colors.grey,
                       ),
@@ -202,9 +204,42 @@ class _ExploreState extends State<Explore> {
                     ),
                   ),
                 ),
-                ListChoice()
-              ]
-              ),
+                ListChoice(
+                  colors: Color.fromARGB(255, 120, 255, 223),
+                  icons: Icons.calendar_today_rounded,
+                  text: 'New',
+                ),
+                ListChoice(
+                  colors: Color.fromARGB(255, 120, 255, 223),
+                  icons: Icons.emoji_events,
+                  text: 'Top',
+                ),
+                ListChoice(
+                  colors: Color.fromARGB(255, 120, 255, 223),
+                  icons: Icons.play_circle,
+                  text: 'Videos',
+                ),
+                ListChoice(
+                  colors: Color.fromARGB(255, 235, 221, 38),
+                  icons: Icons.graphic_eq,
+                  text: 'Hires',
+                ),
+                ListChoice(
+                  colors: Color.fromARGB(255, 120, 255, 223),
+                  icons: Icons.hourglass_bottom,
+                  text: 'Dolby',
+                ),
+                ListChoice(
+                  colors: Color.fromARGB(255, 120, 255, 223),
+                  icons: Icons.star,
+                  text: 'Staff Picks',
+                ),
+                ListChoice(
+                  colors: Color.fromARGB(255, 120, 255, 223),
+                  icons: Icons.group,
+                  text: 'Collabs',
+                ),
+              ]),
             ),
           ),
         ),

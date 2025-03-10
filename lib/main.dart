@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:tidal/screens/profile_screen.dart';
+import 'package:tidal/auth/auth_gate.dart';
 
 void main() async {
   await Supabase.initialize(
@@ -17,10 +17,14 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,7 +43,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.black, // BottomSheet ดำสนิท
         ),
       ),
-      home: ProfileScreen(),
+      home: AuthGate(),
     );
   }
 }

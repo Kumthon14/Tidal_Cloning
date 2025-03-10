@@ -1,22 +1,32 @@
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
 class ListChoice extends StatelessWidget {
   const ListChoice({
     super.key,
+    required this.colors,
+    required this.text,
+    required this.icons,
   });
 
-  final
+  final Color colors;
+  final String text;
+  final IconData icons;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(Icons.calendar_today_rounded,color: const Color.fromARGB(255, 120, 255, 223),),
+      leading: Icon(
+        icons,
+        color: colors,
+      ),
       title: Padding(
         padding: const EdgeInsets.only(left: 5),
-        child: Text('New',style: GoogleFonts.montserrat(fontWeight: FontWeight.w600),),
+        child: Text(
+          text,
+          style:
+              TextStyle(fontFamily: 'Nationale', fontWeight: FontWeight.w600),
+        ),
       ),
       trailing: Icon(IconlyLight.arrow_right_2),
     );

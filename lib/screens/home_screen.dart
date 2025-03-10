@@ -1,13 +1,15 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:tidal/constant/constant.dart';
-
+import 'package:tidal/screens/login.dart';
 import '../widget/Essential.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'Setting.dart';
+import 'SongPlayScreen.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -28,21 +30,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
   Map<String, dynamic>? selectedSong;
 
-  void _onSongSelected(Map<String, dynamic> song) {
-    setState(() {
-      selectedSong = song; // อัพเดตข้อมูลเพลงที่เลือก
-    });
-  }
+  void goToSong(String title) {}
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(slivers: [
       SliverAppBar(
         backgroundColor: Colors.black.withOpacity(0),
-        expandedHeight: 100,
+        expandedHeight: 20,
         floating: false,
         pinned: true,
         flexibleSpace: FlexibleSpaceBar(
@@ -54,15 +51,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.notifications_none),
             onPressed: () {
               print('Search Pressed');
             },
           ),
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: Icon(IconlyLight.setting),
             onPressed: () {
-              print('Settings Pressed');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SettingScreen(),
+                ),
+              );
             },
           ),
         ],
@@ -141,29 +143,47 @@ class _HomeScreenState extends State<HomeScreen> {
                               final songs = snapshot.data!;
 
                               return ListView.builder(
-                                itemCount: songs.length,
+                                itemCount: 5,
                                 itemBuilder: (context, index) {
                                   final song = songs[index];
                                   return ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SongPlayScreen(
+                                            songs: songs, // ส่งลิสต์เพลงทั้งหมด
+                                            currentIndex:
+                                                index, // ส่ง index ของเพลงที่เลือก
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     leading: Container(
                                       width: 50,
                                       height: 50,
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  'https://imtdfqzdxiubsudpbmyx.supabase.co/storage/v1/object/public/Covers//${song['title']}.jpg'))),
+                                        borderRadius: BorderRadius.circular(12),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            'https://imtdfqzdxiubsudpbmyx.supabase.co/storage/v1/object/public/Covers/${song['title']}.jpg',
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                     title: Text(
                                       song['title'] ?? 'No Title',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w500),
+                                      style: TextStyle(
+                                        fontFamily: 'Nationale',
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                     subtitle: Text(
                                       song['artist'] ?? 'Unknown Artist',
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w300),
+                                      style: TextStyle(
+                                        fontFamily: 'Nationale',
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                     ),
                                     trailing: Icon(Icons.more_horiz),
                                   );
@@ -181,7 +201,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ]),
       ),
-      
     ]);
   }
 }

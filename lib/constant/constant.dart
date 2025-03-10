@@ -16,13 +16,15 @@ final textTitle = GoogleFonts.montserrat(
   color: textPrimaryColor,
 );
 
-final textSubTitle = GoogleFonts.montserrat(
+final textSubTitle = TextStyle(
+  fontFamily: 'Nationale',
   fontSize: 18,
   fontWeight: FontWeight.w600,
   color: textPrimaryColor,
 );
 
-final textBtn = GoogleFonts.montserrat(
+final textBtn = TextStyle(
+  fontFamily: 'Nationale',
   fontSize: 19,
   fontWeight: FontWeight.w600,
   color: Colors.white,

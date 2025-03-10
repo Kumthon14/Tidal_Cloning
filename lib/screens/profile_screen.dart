@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:tidal/constant/constant.dart';
+import 'package:tidal/screens/Collection.dart';
 import 'package:tidal/screens/home_screen.dart';
 import 'package:tidal/screens/explore.dart';
 
@@ -23,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const Explore(),
-    const Text('Setting'),
+    const Collection(),
   ];
 
   @override

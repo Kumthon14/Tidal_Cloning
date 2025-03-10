@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ChoiceList extends StatelessWidget {
   const ChoiceList({
@@ -20,7 +19,8 @@ class ChoiceList extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: Text(
           text,
-          style: GoogleFonts.montserrat(
+          style: TextStyle(
+            fontFamily: 'Nationale',
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: const Color.fromARGB(255, 196, 196, 196),
