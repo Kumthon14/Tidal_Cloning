@@ -40,17 +40,14 @@ class _SongPlayScreenState extends State<SongPlayScreen> {
     _audioPlayer = AudioPlayer();
     shuffledIndexes = List.generate(widget.songs.length, (index) => index);
 
-    // โหลดเพลงและดึงค่าระยะเวลา
     loadSong();
 
-    // อัปเดตตำแหน่งปัจจุบันของเพลง
     _audioPlayer.onPositionChanged.listen((pos) {
       setState(() {
         _position = pos;
       });
     });
 
-    // อัปเดตระยะเวลาเมื่อโหลดไฟล์สำเร็จ
     _audioPlayer.onDurationChanged.listen((dur) {
       setState(() {
         _duration = dur;

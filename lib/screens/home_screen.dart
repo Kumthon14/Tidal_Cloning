@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:tidal/constant/constant.dart';
-import 'package:tidal/screens/login.dart';
 import '../widget/Essential.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';

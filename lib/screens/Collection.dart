@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:tidal/widget/ListChoice.dart';
+import 'Setting.dart';
 
 class Collection extends StatelessWidget {
   const Collection({super.key});
@@ -27,7 +28,14 @@ class Collection extends StatelessWidget {
               ),
               Spacer(),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SettingScreen(),
+                ),
+              );
+            },
                 icon: Icon(IconlyLight.setting),
                 color: Colors.white,
                 iconSize: 21,
